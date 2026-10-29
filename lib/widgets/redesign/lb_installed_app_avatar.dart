@@ -16,18 +16,26 @@ class LbInstalledAppAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LbPalette palette = LbPalette.of(context);
-    // جعل الحواف مربعة بالكامل (0) لتملاء الإطار حتى الزوايا
-    final double radius = 0;
+    final double radius = 12; // الحواف الدائرية للإطار
 
     if (app.icon != null) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(radius),
-        child: Image.memory(
-          app.icon!,
+        child: SizedBox(
           width: size,
           height: size,
-          fit: BoxFit.fill, // تمتد الأيقونة لتملأ الإطار بالكامل
-          filterQuality: FilterQuality.high,
+          // تكبير الأيقونة قليلاً (1.3x) وقص الزوائد لإخفاء أي بكسلات بيضاء أو هوامش
+          child: OverflowBox(
+            maxWidth: size * 1.3,
+            maxHeight: size * 1.3,
+            child: Image.memory(
+              app.icon!,
+              width: size * 1.3,
+              height: size * 1.3,
+              fit: BoxFit.cover,
+              filterQuality: FilterQuality.high,
+            ),
+          ),
         ),
       );
     }
