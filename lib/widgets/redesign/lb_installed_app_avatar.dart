@@ -16,7 +16,8 @@ class LbInstalledAppAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LbPalette palette = LbPalette.of(context);
-    final double radius = size * 0.32;
+    // جعل الحواف مربعة بالكامل (0) لتملاء الإطار حتى الزوايا
+    final double radius = 0;
 
     if (app.icon != null) {
       return ClipRRect(
@@ -25,8 +26,8 @@ class LbInstalledAppAvatar extends StatelessWidget {
           app.icon!,
           width: size,
           height: size,
-          fit: BoxFit.cover,
-          filterQuality: FilterQuality.medium,
+          fit: BoxFit.fill, // تمتد الأيقونة لتملأ الإطار بالكامل
+          filterQuality: FilterQuality.high,
         ),
       );
     }
